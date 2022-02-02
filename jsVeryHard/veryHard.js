@@ -20,3 +20,30 @@
 
 // Note: You may assume that you have an infinite number of each kind of coin.
 
+
+//coins = 1, 2, 5
+//what is the minimum value 
+//amount = 11
+// arrays, iteration 
+// coins : 0  1  2  3  4  5  6  7  8  9  10 11
+// amount: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 10, 11
+// is coin <= amount 
+// amount - coin = index 
+// table [index] + 1 = potential amount 
+//table [i] = min [table [i]], potential amount
+
+let coinChange = function(coins, amount){
+    const table = Array(amount + 1).fill(Infinity);
+    table[0] = 0;
+    for(let coin of coins){
+        for(let i = 0; i < table.length; i++){
+            if(coin <= i){
+                let idx = i -coin;
+                let potentialAmt = table[idx] + 1;
+                table[i] = Math.min(potentialAmt, table[i]);
+            }
+        }
+    }
+    return table[table.length -1] === Infinity ? -1 : table[table.length - 1];
+
+}
